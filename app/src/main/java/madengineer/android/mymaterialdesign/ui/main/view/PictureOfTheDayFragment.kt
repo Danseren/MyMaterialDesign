@@ -8,8 +8,11 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
+import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.FragmentPictureOfTheDayBinding
+import madengineer.android.mymaterialdesign.ui.main.util.toast
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayViewModel
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayData
 
@@ -70,13 +73,27 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun renderData(data: PictureOfTheDayData) {
-
-    }
-
-    private fun Fragment.toast(string: String?) {
-        Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
-            setGravity(Gravity.BOTTOM, 0, 250)
-            show()
+        when (data) {
+            is PictureOfTheDayData.Success -> {
+                val serverResponseData = data.serverResponseData
+                val url = serverResponseData.url
+                if (url.isNullOrEmpty()) {
+                    toast("Link is empty")
+                } else {
+                    binding.imageView.load(url) {
+                        lifecycle(this@PictureOfTheDayFragment)
+                        error(R.drawable.ic_load_error_vector)
+                        placeholder(R.drawable.ic_no_photo_vector)
+                        crossfade(true)
+                    }
+                }
+            }
+            is PictureOfTheDayData.Loading -> {
+                //TODO
+            }
+            is PictureOfTheDayData.Error -> {
+                toast(data.error.message)
+            }
         }
     }
 
