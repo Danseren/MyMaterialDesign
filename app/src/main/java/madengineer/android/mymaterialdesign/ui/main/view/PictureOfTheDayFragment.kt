@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -12,6 +13,7 @@ import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.FragmentPictureOfTheDayBinding
+import madengineer.android.mymaterialdesign.ui.main.model.PODServerResponseData
 import madengineer.android.mymaterialdesign.ui.main.util.toast
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayViewModel
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayData
@@ -44,7 +46,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data =
@@ -64,8 +66,19 @@ class PictureOfTheDayFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setBottomSheetBehavior(findViewById: Any) {
+    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
+    }
+
+    private fun createBottomSheet(serverResponseData: PODServerResponseData) {
+        (view?.findViewById(R.id.bottomSheetDescriptionHeader) as TextView).let {
+            it.text = "${serverResponseData.title}"
+        }
+        (view?.findViewById(R.id.bottomSheetDescription) as TextView).let {
+            it.text = "${serverResponseData.explanation}"
+        }
     }
 
     private fun setBottomAppBar(view: View) {
@@ -86,6 +99,7 @@ class PictureOfTheDayFragment : Fragment() {
                         placeholder(R.drawable.ic_no_photo_vector)
                         crossfade(true)
                     }
+                    createBottomSheet(serverResponseData)
                 }
             }
             is PictureOfTheDayData.Loading -> {
