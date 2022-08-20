@@ -9,8 +9,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import coil.load
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import madengineer.android.mymaterialdesign.MainActivity
 import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.FragmentPictureOfTheDayBinding
 import madengineer.android.mymaterialdesign.ui.main.model.PODServerResponseData
@@ -53,16 +56,25 @@ class PictureOfTheDayFragment : Fragment() {
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
-        //setBottomAppBar(view)
+        setBottomAppBar(view)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
+        when (item.itemId) {
+            R.id.app_bar_fav -> toast("Favourite")
+            R.id.app_bar_settings -> toast("Settings")
+            android.R.id.home -> {
+                activity?.let{
+                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
+                }
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -82,7 +94,29 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun setBottomAppBar(view: View) {
+        val context = activity as MainActivity
+        context.setSupportActionBar(binding.bottomAppBar)
+        setHasOptionsMenu(true)
 
+        binding.fab.setOnClickListener {
+            if (isMain) {
+                isMain = false
+                binding.apply {
+                    bottomAppBar.navigationIcon = null
+                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+                    fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_fab))
+                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
+                }
+            } else {
+                isMain = true
+                binding.apply {
+                    bottomAppBar.navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
+                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                    fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_fab))
+                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
+                }
+            }
+        }
     }
 
     private fun renderData(data: PictureOfTheDayData) {
