@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -62,7 +61,6 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_bottom_bar, menu)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -70,7 +68,7 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_fav -> toast("Favourite")
             R.id.app_bar_settings -> toast("Settings")
             android.R.id.home -> {
-                activity?.let{
+                activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
                 }
             }
@@ -110,7 +108,8 @@ class PictureOfTheDayFragment : Fragment() {
             } else {
                 isMain = true
                 binding.apply {
-                    bottomAppBar.navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
+                    bottomAppBar.navigationIcon =
+                        ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
                     bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
                     fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_fab))
                     bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
