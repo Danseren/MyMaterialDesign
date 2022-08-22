@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_navigation_layout_view_margin_top">8dp</dimen>
+    <dimen name="bottom_navigation_layout_view_margin_start">8dp</dimen>
+    <dimen name="bottom_navigation_layout_view_margin_end">8dp</dimen>
+    <dimen name="bottom_sheet_layout_behavior_peekHeight">100dp</dimen>
+    <dimen name="bottom_sheet_layout_bottom_sheet_line_layout_width">25dp</dimen>
+    <dimen name="bottom_sheet_layout_line_layout_height">1dp</dimen>
+    <dimen name="bottom_sheet_layout_line_layout_marginTop">5dp</dimen>
+    <dimen name="bottom_sheet_layout_description_header_marginTop">5dp</dimen>
+    <dimen name="bottom_sheet_layout_description_header_paddingStart">10dp</dimen>
+    <dimen name="bottom_sheet_layout_description_header_paddingEnd">10dp</dimen>
+    <dimen name="bottom_sheet_layout_description_paddingStart">10dp</dimen>
+    <dimen name="bottom_sheet_layout_description_paddingEnd">10dp</dimen>
+    <dimen name="fragment_picture_of_the_day_main_paddingStart">10dp</dimen>
+    <dimen name="fragment_picture_of_the_day_main_paddingEnd">10dp</dimen>
+    <dimen name="fragment_picture_of_the_day_bottom_app_bar_fabCradleRoundedCornerRadius">10dp</dimen>
+    <dimen name="fragment_picture_of_the_day_bottom_app_bar_fabCradleMargin">4dp</dimen>
+</resources>

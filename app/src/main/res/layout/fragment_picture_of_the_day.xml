@@ -14,8 +14,8 @@
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp">
+            android:paddingStart="@dimen/fragment_picture_of_the_day_main_paddingStart"
+            android:paddingEnd="@dimen/fragment_picture_of_the_day_main_paddingEnd">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout"
@@ -62,8 +62,8 @@
         app:fabAlignmentMode="center"
         app:hideOnScroll="true"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:fabCradleRoundedCornerRadius="10dp"
-        app:fabCradleMargin="4dp"
+        app:fabCradleRoundedCornerRadius="@dimen/fragment_picture_of_the_day_bottom_app_bar_fabCradleRoundedCornerRadius"
+        app:fabCradleMargin="@dimen/fragment_picture_of_the_day_bottom_app_bar_fabCradleMargin"
         app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

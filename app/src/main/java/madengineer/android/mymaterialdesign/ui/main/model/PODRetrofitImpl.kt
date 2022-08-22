@@ -1,6 +1,7 @@
 package madengineer.android.mymaterialdesign.ui.main.model
 
 import com.google.gson.GsonBuilder
+import madengineer.android.mymaterialdesign.ui.main.util.API_NASA
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,7 +11,7 @@ import java.io.IOException
 
 class PODRetrofitImpl {
 
-    private val baseUrl = "https://api.nasa.gov/"
+    private val baseUrl = API_NASA
 
     fun getRetrofitImpl(): PictureOfTheDayAPI {
         val podRetrofit = Retrofit.Builder()

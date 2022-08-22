@@ -16,6 +16,7 @@ import madengineer.android.mymaterialdesign.MainActivity
 import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.FragmentPictureOfTheDayBinding
 import madengineer.android.mymaterialdesign.ui.main.model.PODServerResponseData
+import madengineer.android.mymaterialdesign.ui.main.util.WIKIPEDIA_URL
 import madengineer.android.mymaterialdesign.ui.main.util.toast
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayViewModel
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayData
@@ -52,7 +53,7 @@ class PictureOfTheDayFragment : Fragment() {
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data =
-                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                    Uri.parse("$WIKIPEDIA_URL${binding.inputEditText.text.toString()}")
             })
         }
         setBottomAppBar(view)
@@ -83,10 +84,10 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun createBottomSheet(serverResponseData: PODServerResponseData) {
-        (view?.findViewById(R.id.bottomSheetDescriptionHeader) as TextView).let {
+        (view?.findViewById(R.id.bottom_sheet_description_header) as TextView).let {
             it.text = "${serverResponseData.title}"
         }
-        (view?.findViewById(R.id.bottomSheetDescription) as TextView).let {
+        (view?.findViewById(R.id.bottom_sheet_description) as TextView).let {
             it.text = "${serverResponseData.explanation}"
         }
     }
