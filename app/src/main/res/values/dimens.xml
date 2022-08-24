@@ -16,4 +16,7 @@
     <dimen name="fragment_picture_of_the_day_main_paddingEnd">10dp</dimen>
     <dimen name="fragment_picture_of_the_day_bottom_app_bar_fabCradleRoundedCornerRadius">10dp</dimen>
     <dimen name="fragment_picture_of_the_day_bottom_app_bar_fabCradleMargin">4dp</dimen>
+    <dimen name="fragment_settings_textView_layout_margin">8dp</dimen>
+    <dimen name="fragment_settings_textView_textSize">24sp</dimen>
+    <dimen name="chip_corner_radius">8dp</dimen>
 </resources>
