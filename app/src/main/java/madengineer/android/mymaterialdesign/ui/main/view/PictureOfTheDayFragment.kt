@@ -16,8 +16,7 @@ import madengineer.android.mymaterialdesign.MainActivity
 import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.FragmentPictureOfTheDayBinding
 import madengineer.android.mymaterialdesign.ui.main.model.PODServerResponseData
-import madengineer.android.mymaterialdesign.ui.main.util.WIKIPEDIA_URL
-import madengineer.android.mymaterialdesign.ui.main.util.toast
+import madengineer.android.mymaterialdesign.ui.main.util.*
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayViewModel
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayData
 
@@ -66,7 +65,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_fav -> toast("Favourite")
+            R.id.app_bar_fav -> toast(APP_BAR_FAV_TOAST)
             R.id.app_bar_settings -> activity
                 ?.supportFragmentManager
                 ?.beginTransaction()
@@ -75,7 +74,7 @@ class PictureOfTheDayFragment : Fragment() {
                 ?.commit()
             android.R.id.home -> {
                 activity?.let {
-                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
+                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, BNDV_TAG)
                 }
             }
         }
@@ -130,7 +129,7 @@ class PictureOfTheDayFragment : Fragment() {
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.url
                 if (url.isNullOrEmpty()) {
-                    toast("Link is empty")
+                    toast(POTDD_URL_IS_NULL_OR_EMPTY)
                 } else {
                     binding.imageView.load(url) {
                         lifecycle(this@PictureOfTheDayFragment)

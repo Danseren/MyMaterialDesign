@@ -8,4 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color_gray">#66000000</color>
+
+    <color name="spaceColorPrimary">#0A1337</color>
+    <color name="spaceColorPrimaryVariant">#0E1D59</color>
+    <color name="spaceColorSecondary">#4055AC</color>
+    <color name="spaceColorSecondaryVariant">#506FED</color>
+    <color name="colorSurface">#6B86F4</color>
+    <color name="colorBackground">#94A5E6</color>
+
 </resources>

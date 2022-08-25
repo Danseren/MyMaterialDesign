@@ -13,4 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="SpaceTheme" parent="Theme.MyMaterialDesign">
+        <item name="colorPrimary">@color/spaceColorPrimary</item>
+        <item name="colorPrimaryVariant">@color/spaceColorPrimaryVariant</item>
+        <item name="colorSecondary">@color/spaceColorSecondary</item>
+        <item name="colorSecondaryVariant">@color/spaceColorSecondaryVariant</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+    </style>
 </resources>

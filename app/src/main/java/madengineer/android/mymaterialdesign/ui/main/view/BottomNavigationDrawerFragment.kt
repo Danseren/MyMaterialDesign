@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.BottomNavigationLayoutBinding
+import madengineer.android.mymaterialdesign.ui.main.util.NAVIGATION_ONE_TOAST
+import madengineer.android.mymaterialdesign.ui.main.util.NAVIGATION_TWO_TOAST
 import madengineer.android.mymaterialdesign.ui.main.util.toast
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -27,8 +29,8 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.navigation_one -> toast("1")
-                R.id.navigation_two -> toast("2")
+                R.id.navigation_one -> toast(NAVIGATION_ONE_TOAST)
+                R.id.navigation_two -> toast(NAVIGATION_TWO_TOAST)
             }
             true
         }

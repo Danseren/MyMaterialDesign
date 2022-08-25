@@ -13,31 +13,29 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/header_textview_style"
             android:text="@string/settings_tv"/>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/chip_group_style"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                style="@style/chip_style"
+                android:id="@+id/first_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
                 android:text="@string/chip_theme_A" />
 
             <com.google.android.material.chip.Chip
-                style="@style/chip_style"
+                android:id="@+id/second_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_theme_B" />
 
             <com.google.android.material.chip.Chip
-                style="@style/chip_style"
+                android:id="@+id/third_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_theme_C" />
