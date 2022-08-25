@@ -9,11 +9,18 @@
     <color name="white">#FFFFFFFF</color>
     <color name="color_gray">#66000000</color>
 
-    <color name="spaceColorPrimary">#0A1337</color>
-    <color name="spaceColorPrimaryVariant">#0E1D59</color>
-    <color name="spaceColorSecondary">#4055AC</color>
-    <color name="spaceColorSecondaryVariant">#506FED</color>
-    <color name="colorSurface">#6B86F4</color>
-    <color name="colorBackground">#94A5E6</color>
+    <color name="space_colorPrimary">#0A1337</color>
+    <color name="space_colorPrimaryVariant">#0E1D59</color>
+    <color name="space_colorSecondary">#4055AC</color>
+    <color name="space_colorSecondaryVariant">#506FED</color>
+    <color name="space_colorSurface">#6B86F4</color>
+    <color name="space_colorBackground">#94A5E6</color>
+
+    <color name="sun_colorPrimary">#E16138</color>
+    <color name="sun_colorPrimaryVariant">#F67952</color>
+    <color name="sun_colorSecondary">#F3B458</color>
+    <color name="sun_colorSecondaryVariant">#E3B674</color>
+    <color name="sun_colorSurface">#F1D47C</color>
+    <color name="sun_colorBackground">#EDDA9E</color>
 
 </resources>

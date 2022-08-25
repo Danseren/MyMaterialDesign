@@ -12,14 +12,26 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="shapeAppearanceSmallComponent">@style/AppShapeAppearance.SmallComponent.Cut</item>
+        <item name="shapeAppearanceMediumComponent">@style/AppShapeAppearance.MediumComponent</item>
     </style>
 
     <style name="SpaceTheme" parent="Theme.MyMaterialDesign">
-        <item name="colorPrimary">@color/spaceColorPrimary</item>
-        <item name="colorPrimaryVariant">@color/spaceColorPrimaryVariant</item>
-        <item name="colorSecondary">@color/spaceColorSecondary</item>
-        <item name="colorSecondaryVariant">@color/spaceColorSecondaryVariant</item>
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorPrimary">@color/space_colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/space_colorPrimaryVariant</item>
+        <item name="colorSecondary">@color/space_colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/space_colorSecondaryVariant</item>
+        <item name="colorSurface">@color/space_colorSurface</item>
+        <item name="android:colorBackground">@color/space_colorBackground</item>
+        <item name="shapeAppearanceSmallComponent">@style/AppShapeAppearance.SmallComponent.Rounded</item>
+    </style>
+
+    <style name="SunTheme" parent="Theme.MyMaterialDesign">
+        <item name="colorPrimary">@color/sun_colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/sun_colorPrimaryVariant</item>
+        <item name="colorSecondary">@color/sun_colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/sun_colorSecondaryVariant</item>
+        <item name="colorSurface">@color/sun_colorSurface</item>
+        <item name="android:colorBackground">@color/sun_colorBackground</item>
     </style>
 </resources>

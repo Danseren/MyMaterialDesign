@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.chip.Chip
+import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.FragmentSettingsBinding
 import madengineer.android.mymaterialdesign.ui.main.util.toast
 
@@ -26,11 +25,11 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.chipGroup.setOnCheckedStateChangeListener { chipGroup, checkedIds ->
-            when (chipGroup.checkedChipId) {
-                binding.firstChip.id -> toast("first заглушка")
-                binding.secondChip.id -> toast("second заглушка")
-                binding.thirdChip.id -> toast("third заглушка")
+        binding.chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            when (group.checkedChipId) {
+                binding.firstChip.id -> requireActivity().setTheme(R.style.Theme_MyMaterialDesign)
+                binding.secondChip.id -> requireActivity().setTheme(R.style.SpaceTheme)
+                binding.thirdChip.id -> requireActivity().setTheme(R.style.SunTheme)
             }
         }
     }
