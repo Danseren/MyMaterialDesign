@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView2"
@@ -53,25 +53,4 @@
 
     <include layout="@layout/bottom_sheet_layout" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabAlignmentMode="center"
-        app:hideOnScroll="true"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:fabCradleRoundedCornerRadius="@dimen/fragment_picture_of_the_day_bottom_app_bar_fabCradleRoundedCornerRadius"
-        app:fabCradleMargin="@dimen/fragment_picture_of_the_day_bottom_app_bar_fabCradleMargin"
-        app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        app:layout_anchor="@id/bottom_app_bar"
-        app:srcCompat="@drawable/ic_plus_fab"
-        app:tint="@android:color/white" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

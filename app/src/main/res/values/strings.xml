@@ -6,13 +6,17 @@
     <string name="favourite">favourite</string>
     <string name="settings">settings</string>
     <string name="search">Search</string>
-    <string name="chip_today">Сегодня</string>
-    <string name="chip_yesterday">Вчера</string>
-    <string name="chip_day_before_yesterday">Позавчера</string>
+    <string name="today">Сегодня</string>
+    <string name="yesterday">Вчера</string>
+    <string name="day_before_yesterday">Позавчера</string>
     <string name="bottom_sheet_description_header">DESCRIPTION HEADER</string>
     <string name="bottom_sheet_description">DESCRIPTION BODY</string>
     <string name="settings_tv">Choose Theme</string>
     <string name="chip_theme_A">Choice Theme A</string>
     <string name="chip_theme_B">Choice Theme B</string>
     <string name="chip_theme_C">Choice Theme C</string>
+    <string name="pod">POD</string>
+    <string name="earth">Earth</string>
+    <string name="mars">Mars</string>
+    <string name="weather">Weather</string>
 </resources>

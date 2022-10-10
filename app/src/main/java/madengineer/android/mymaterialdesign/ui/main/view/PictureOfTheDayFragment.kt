@@ -55,7 +55,6 @@ class PictureOfTheDayFragment : Fragment() {
                     Uri.parse("$WIKIPEDIA_URL${binding.inputEditText.text.toString()}")
             })
         }
-        setBottomAppBar(view)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -93,33 +92,6 @@ class PictureOfTheDayFragment : Fragment() {
         }
         (view?.findViewById(R.id.bottom_sheet_description) as TextView).let {
             it.text = "${serverResponseData.explanation}"
-        }
-    }
-
-    private fun setBottomAppBar(view: View) {
-        val context = activity as MainActivity
-        context.setSupportActionBar(binding.bottomAppBar)
-        setHasOptionsMenu(true)
-
-        binding.fab.setOnClickListener {
-            if (isMain) {
-                isMain = false
-                binding.apply {
-                    bottomAppBar.navigationIcon = null
-                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                    fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_fab))
-                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
-                }
-            } else {
-                isMain = true
-                binding.apply {
-                    bottomAppBar.navigationIcon =
-                        ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
-                    bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                    fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_fab))
-                    bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
-                }
-            }
         }
     }
 
