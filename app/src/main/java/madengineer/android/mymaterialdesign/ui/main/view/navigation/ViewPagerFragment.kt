@@ -42,18 +42,24 @@ class ViewPagerFragment : Fragment() {
             object : TabLayoutMediator.TabConfigurationStrategy {
                 override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
                     tab.text = when (position) {
-                        0 -> {
+                        TODAY -> {
                             resources.getString(R.string.today)
                         }
-                        1 -> {
+                        YESTERDAY -> {
                             resources.getString(R.string.yesterday)
                         }
-                        2 -> {
+                        BEFORE_YESTERDAY -> {
                             resources.getString((R.string.day_before_yesterday))
                         }
                         else -> {resources.getString(R.string.today)}
                     }
                 }
             }).attach()
+    }
+
+    companion object {
+        private const val TODAY = 0
+        private const val YESTERDAY = 1
+        private const val BEFORE_YESTERDAY = 2
     }
 }

@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <madengineer.android.mymaterialdesign.ui.main.util.EquilateralImageView
+        android:id="@+id/image_earth"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="356dp"
-        android:text="Earth foto"
+        android:contentDescription="@string/photo_of_the_day_stub"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/ic_no_photo_vector"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

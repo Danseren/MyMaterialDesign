@@ -1,14 +1,19 @@
 package madengineer.android.mymaterialdesign
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import madengineer.android.mymaterialdesign.databinding.MainActivityBinding
-import madengineer.android.mymaterialdesign.ui.main.view.PictureOfTheDayFragment
 import madengineer.android.mymaterialdesign.ui.main.view.navigation.EarthFragment
 import madengineer.android.mymaterialdesign.ui.main.view.navigation.MarsFragment
 import madengineer.android.mymaterialdesign.ui.main.view.navigation.ViewPagerFragment
+import madengineer.android.mymaterialdesign.ui.main.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    val mainViewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
 
     private lateinit var binding: MainActivityBinding
 
@@ -25,12 +30,12 @@ class MainActivity : AppCompatActivity() {
                             .replace(R.id.container, ViewPagerFragment()).commit()
                         true
                     }
-                    R.id.action_bottom_navigation_earth ->{
+                    R.id.action_bottom_navigation_earth -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.container, EarthFragment()).commit()
                         true
                     }
-                    R.id.action_bottom_navigation_mars ->{
+                    R.id.action_bottom_navigation_mars -> {
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.container, MarsFragment()).commit()
                         true
