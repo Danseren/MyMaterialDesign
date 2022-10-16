@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.FragmentSettingsBinding
-import madengineer.android.mymaterialdesign.ui.main.util.toast
 
 class SettingsFragment : Fragment() {
 

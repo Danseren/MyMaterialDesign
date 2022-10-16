@@ -1,24 +1,25 @@
 package madengineer.android.mymaterialdesign.ui.main.view
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import coil.load
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import madengineer.android.mymaterialdesign.MainActivity
 import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.FragmentPictureOfTheDayBinding
 import madengineer.android.mymaterialdesign.ui.main.model.PODServerResponseData
-import madengineer.android.mymaterialdesign.ui.main.util.*
-import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayViewModel
-import madengineer.android.mymaterialdesign.ui.main.viewmodel.PictureOfTheDayData
+import madengineer.android.mymaterialdesign.ui.main.util.WIKIPEDIA_URL
+import madengineer.android.mymaterialdesign.ui.main.viewmodel.AppState
+import madengineer.android.mymaterialdesign.ui.main.viewmodel.MainViewModel
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -26,28 +27,39 @@ class PictureOfTheDayFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    lateinit var mainViewModel: MainViewModel
 
     companion object {
-        fun newInstance() = PictureOfTheDayFragment()
+        fun newInstance(fragmentNumber: Int): PictureOfTheDayFragment {
+            val arg = Bundle()
+            arg.putInt(INT_NUMBER, fragmentNumber)
+            val fragment = PictureOfTheDayFragment()
+            fragment.arguments = arg
+            return fragment
+        }
         private var isMain = true
+        private const val TODAY = 0
+        private const val YESTERDAY = 1
+        private const val BEFORE_YESTERDAY = 2
+        private const val INT_NUMBER = "int_number"
     }
 
-    private val viewModel: PictureOfTheDayViewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainViewModel = (context as MainActivity).mainViewModel
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.getData()
-            .observe(viewLifecycleOwner) { renderData(it) }
-        _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+        _binding = FragmentPictureOfTheDayBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainViewModel.getData().observe(viewLifecycleOwner, {renderData(it)})
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -55,29 +67,14 @@ class PictureOfTheDayFragment : Fragment() {
                     Uri.parse("$WIKIPEDIA_URL${binding.inputEditText.text.toString()}")
             })
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.app_bar_fav -> toast(APP_BAR_FAV_TOAST)
-            R.id.app_bar_settings -> activity
-                ?.supportFragmentManager
-                ?.beginTransaction()
-                ?.replace(R.id.container, SettingsFragment())
-                ?.addToBackStack(null)
-                ?.commit()
-            android.R.id.home -> {
-                activity?.let {
-                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, BNDV_TAG)
-                }
-            }
+        val args = arguments
+        if (args?.getInt(INT_NUMBER) == TODAY) {
+            mainViewModel.getPOD(TODAY)
+        } else if (args?.getInt(INT_NUMBER) == YESTERDAY) {
+            mainViewModel.getPOD(YESTERDAY)
+        } else {
+            mainViewModel.getPOD(BEFORE_YESTERDAY)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
@@ -95,30 +92,23 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
-    private fun renderData(data: PictureOfTheDayData) {
-        when (data) {
-            is PictureOfTheDayData.Success -> {
-                val serverResponseData = data.serverResponseData
-                val url = serverResponseData.url
-                if (url.isNullOrEmpty()) {
-                    toast(POTDD_URL_IS_NULL_OR_EMPTY)
-                } else {
-                    binding.imageView.load(url) {
-                        lifecycle(this@PictureOfTheDayFragment)
-                        error(R.drawable.ic_load_error_vector)
-                        placeholder(R.drawable.ic_no_photo_vector)
-                        crossfade(true)
-                    }
-                    createBottomSheet(serverResponseData)
-                }
+    private fun renderData(appState: AppState) {
+        when(appState) {
+            is AppState.Error ->
+                Snackbar.make(binding.root, appState.error.toString(), Snackbar.LENGTH_SHORT).show()
+            is AppState.Loading -> {
+                binding.imageView.load(R.drawable.progress_animation)
             }
-            is PictureOfTheDayData.Loading -> {
-                //TODO
-            }
-            is PictureOfTheDayData.Error -> {
-                toast(data.error.message)
+            is AppState.SuccessPOD -> {
+                setData(appState)
+                createBottomSheet(appState.serverResponseData)
             }
         }
+    }
+
+    private fun setData(data: AppState.SuccessPOD) {
+        val url = data.serverResponseData.hdurl
+        binding.imageView.load(url)
     }
 
     override fun onDestroyView() {
