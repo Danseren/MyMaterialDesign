@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/action_bottom_navigation_POD"
-        android:title="@string/pod"
+    <item android:id="@+id/action_bottom_navigation_constraint"
+        android:title="@string/constraint"
         android:icon="@drawable/ic_favourite_menu"/>
-    <item android:id="@+id/action_bottom_navigation_earth"
-        android:title="@string/earth"
+    <item android:id="@+id/action_bottom_navigation_coordinator"
+        android:title="@string/coordinator"
         android:icon="@drawable/ic_earth"/>
-    <item android:id="@+id/action_bottom_navigation_mars"
-        android:title="@string/mars"
+    <item android:id="@+id/action_bottom_navigation_motion"
+        android:title="@string/motion"
         android:icon="@drawable/ic_mars"/>
 </menu>

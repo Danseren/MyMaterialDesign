@@ -11,12 +11,15 @@
     <string name="day_before_yesterday">Позавчера</string>
     <string name="bottom_sheet_description_header">DESCRIPTION HEADER</string>
     <string name="bottom_sheet_description">DESCRIPTION BODY</string>
-    <string name="settings_tv">Choose Theme</string>
+    <string name="settings_tv">Constraint layout</string>
     <string name="chip_theme_A">Choice Theme A</string>
     <string name="chip_theme_B">Choice Theme B</string>
     <string name="chip_theme_C">Choice Theme C</string>
-    <string name="pod">POD</string>
-    <string name="earth">Earth</string>
-    <string name="mars">Mars</string>
+    <string name="constraint">Constraint</string>
+    <string name="coordinator">Coordinator</string>
+    <string name="motion">Motion</string>
     <string name="weather">Weather</string>
+    <string name="text_size_8f">8</string>
+    <string name="text_size_12f">12</string>
+    <string name="text_size_16f">16</string>
 </resources>
