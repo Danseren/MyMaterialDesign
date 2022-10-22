@@ -63,6 +63,7 @@
         app:layout_constraintStart_toStartOf="@id/barrierVertical"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         app:layout_constraintWidth_percent="0.6"
+        android:scaleType="centerInside"
         app:srcCompat="@drawable/ic_no_photo_vector" />
 
     <TextView
