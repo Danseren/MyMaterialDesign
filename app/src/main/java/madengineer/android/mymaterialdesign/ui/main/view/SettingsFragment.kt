@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
 import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
 import com.google.android.material.snackbar.Snackbar
 import madengineer.android.mymaterialdesign.MainActivity
@@ -24,6 +28,8 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var mainViewModel: MainViewModel
     var isFlag = false
+    var isFlagForImage = false
+    var duration = 2000L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +52,7 @@ class SettingsFragment : Fragment() {
             binding.textViewDescription.textSize = 8F
             isFlag = !isFlag
             val chageBounds = ChangeBounds()
-            chageBounds.duration = 2000L
+            chageBounds.duration = duration
             chageBounds.interpolator = AnticipateOvershootInterpolator(5.0f)
             TransitionManager.beginDelayedTransition(binding.constraintContainer, chageBounds)
             if (isFlag) {
@@ -73,6 +79,29 @@ class SettingsFragment : Fragment() {
         }
         binding.btnThird.setOnClickListener {
             binding.textViewDescription.textSize = 16F
+        }
+        binding.imageView.setOnClickListener {
+            isFlagForImage = !isFlagForImage
+            val params = it.layoutParams as ConstraintLayout.LayoutParams
+
+            val transitionSet = TransitionSet()
+            val changeImageTransform = ChangeImageTransform()
+            val changeBounds = ChangeBounds()
+            changeBounds.duration = duration
+            changeImageTransform.duration = duration
+            transitionSet.ordering = TransitionSet.ORDERING_TOGETHER
+            transitionSet.addTransition(changeBounds)
+            transitionSet.addTransition(changeImageTransform)
+
+            TransitionManager.beginDelayedTransition(binding.root, transitionSet)
+            if (isFlagForImage) {
+                params.height = ConstraintLayout.LayoutParams.MATCH_PARENT
+                binding.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+            } else {
+                params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
+            }
+            binding.imageView.layoutParams = params
         }
     }
 
