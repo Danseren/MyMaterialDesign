@@ -28,7 +28,6 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var mainViewModel: MainViewModel
     var isFlag = false
-
     var isFlagForImage = false
     var duration = 2000L
 

@@ -16,7 +16,7 @@
     <string name="chip_theme_B">Choice Theme B</string>
     <string name="chip_theme_C">Choice Theme C</string>
     <string name="constraint">Move + Image Transf</string>
-    <string name="coordinator">Coordinator</string>
+    <string name="coordinator">RecyclerView</string>
     <string name="motion">Motion</string>
     <string name="weather">Weather</string>
     <string name="text_size_8f">Action</string>

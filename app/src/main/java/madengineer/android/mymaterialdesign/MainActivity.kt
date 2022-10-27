@@ -7,6 +7,7 @@ import madengineer.android.mymaterialdesign.databinding.MainActivityBinding
 import madengineer.android.mymaterialdesign.ui.main.view.PictureOfTheDayFragment
 import madengineer.android.mymaterialdesign.ui.main.view.SettingsFragment
 import madengineer.android.mymaterialdesign.ui.main.view.navigation.MarsFragment
+import madengineer.android.mymaterialdesign.ui.main.view.navigation.RecyclerFragment
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     R.id.action_bottom_navigation_coordinator -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, PictureOfTheDayFragment()).commit()
+                            .replace(R.id.container, RecyclerFragment()).commit()
                         true
                     }
                     R.id.action_bottom_navigation_motion -> {
