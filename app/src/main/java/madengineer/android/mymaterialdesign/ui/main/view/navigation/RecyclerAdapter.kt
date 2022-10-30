@@ -10,24 +10,24 @@ import madengineer.android.mymaterialdesign.ui.main.model.Data
 import madengineer.android.mymaterialdesign.ui.main.model.TYPE_NOTE
 
 class RecyclerAdapter(
-    private var listData: MutableList<Data>,
+    private var listData: MutableList<Pair<Data, Boolean>>,
     val callbackAdd: AddItem,
     val callbackRemove: RemoveItem
 ) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
 
-    fun setListDataRemove(listDataView: MutableList<Data>, position: Int) {
+    fun setListDataRemove(listDataView: MutableList<Pair<Data, Boolean>>, position: Int) {
         listData = listDataView
         notifyItemRemoved(position)
     }
 
-    fun setListDataAdd(listDataNew: MutableList<Data>, position: Int) {
+    fun setListDataAdd(listDataNew: MutableList<Pair<Data, Boolean>>, position: Int) {
         listData = listDataNew
         notifyItemInserted(position)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return listData[position].type
+        return listData[position].first.type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -55,8 +55,8 @@ class RecyclerAdapter(
 
     inner class NoteViewHolder(val binding: ActivityRecyclerItemNoteBinding) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Data) {
-            binding.title.text = data.title
+        override fun bind(data: Pair<Data, Boolean>) {
+            binding.title.text = data.first.title
             binding.addItemImageView.setOnClickListener {
                 callbackAdd.add(layoutPosition)
             }
@@ -79,18 +79,25 @@ class RecyclerAdapter(
                     notifyItemMoved(layoutPosition, layoutPosition + 1)
                 }
             }
+            binding.editTextTextPersonName.visibility = if (listData[layoutPosition].second) View.VISIBLE else View.GONE
+            binding.noteBody.setOnClickListener {
+                listData[layoutPosition] = listData[layoutPosition].let {
+                    it.first to !it.second
+                }
+                notifyItemChanged(layoutPosition)
+            }
         }
     }
 
     class HeaderViewHolder(val binding: ActivityRecyclerItemHeaderBinding) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Data) {
-            binding.title.text = data.title
+        override fun bind(data: Pair<Data, Boolean>) {
+            binding.title.text = data.first.title
         }
     }
 
     abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        abstract fun bind(data: Data)
+        abstract fun bind(data: Pair<Data, Boolean>)
     }
 
 }

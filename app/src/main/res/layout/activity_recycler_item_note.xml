@@ -68,10 +68,25 @@
         app:layout_constraintTop_toTopOf="@+id/title"
         app:srcCompat="@android:drawable/arrow_down_float" />
 
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Содержание заметки"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteBody"
+        tools:visibility="visible" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#000"
-        app:layout_constraintBottom_toBottomOf="@+id/noteBody"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

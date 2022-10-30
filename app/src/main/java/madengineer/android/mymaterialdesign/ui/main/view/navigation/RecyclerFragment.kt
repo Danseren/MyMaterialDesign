@@ -19,11 +19,11 @@ class RecyclerFragment : Fragment() {
         }
 
     private val data = arrayListOf(
-        Data("Заголовок", type = TYPE_HEADER),
-        Data("Note", type = TYPE_NOTE),
-        Data("Note", type = TYPE_NOTE),
-        Data("Note", type = TYPE_NOTE),
-        Data("Note", type = TYPE_NOTE)
+        Pair(Data("Заголовок", type = TYPE_HEADER), false),
+        Pair(Data("Note", type = TYPE_NOTE), false),
+        Pair(Data("Note", type = TYPE_NOTE), false),
+        Pair(Data("Note", type = TYPE_NOTE), false),
+        Pair(Data("Note", type = TYPE_NOTE), false),
     )
     lateinit var adapter: RecyclerAdapter
 
@@ -45,7 +45,7 @@ class RecyclerFragment : Fragment() {
 
     private val callbackAdd = object : AddItem {
         override fun add(position: Int) {
-            data.add(position, Data("Note (NEW)", type = TYPE_NOTE))
+            data.add(position, Pair(Data("Note (NEW)", type = TYPE_NOTE), false))
             adapter.setListDataAdd(data, position)
         }
     }
