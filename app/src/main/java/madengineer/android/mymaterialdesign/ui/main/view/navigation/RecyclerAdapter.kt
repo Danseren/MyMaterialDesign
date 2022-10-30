@@ -10,18 +10,18 @@ import madengineer.android.mymaterialdesign.ui.main.model.Data
 import madengineer.android.mymaterialdesign.ui.main.model.TYPE_NOTE
 
 class RecyclerAdapter(
-    private var listData: List<Data>,
+    private var listData: MutableList<Data>,
     val callbackAdd: AddItem,
     val callbackRemove: RemoveItem
 ) :
     RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
 
-    fun setListDataRemove(listDataView: List<Data>, position: Int) {
+    fun setListDataRemove(listDataView: MutableList<Data>, position: Int) {
         listData = listDataView
         notifyItemRemoved(position)
     }
 
-    fun setListDataAdd(listDataNew: List<Data>, position: Int) {
+    fun setListDataAdd(listDataNew: MutableList<Data>, position: Int) {
         listData = listDataNew
         notifyItemInserted(position)
     }
@@ -62,6 +62,22 @@ class RecyclerAdapter(
             }
             binding.removeItemImageView.setOnClickListener {
                 callbackRemove.remove(layoutPosition)
+            }
+            binding.moveItemUp.setOnClickListener {
+                if (layoutPosition > 1) {
+                    listData.removeAt(layoutPosition).apply {
+                        listData.add(layoutPosition - 1, this)
+                    }
+                    notifyItemMoved(layoutPosition, layoutPosition - 1)
+                }
+            }
+            binding.moveItemDown.setOnClickListener {
+                if (layoutPosition != listData.size - 1) {
+                    listData.removeAt(layoutPosition).apply {
+                        listData.add(layoutPosition + 1, this)
+                    }
+                    notifyItemMoved(layoutPosition, layoutPosition + 1)
+                }
             }
         }
     }
