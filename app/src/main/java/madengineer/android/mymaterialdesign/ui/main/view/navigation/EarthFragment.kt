@@ -12,6 +12,7 @@ import madengineer.android.mymaterialdesign.BuildConfig
 import madengineer.android.mymaterialdesign.MainActivity
 import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.FragmentEarthBinding
+import madengineer.android.mymaterialdesign.ui.main.util.EPIC_NASA
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.AppState
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.MainViewModel
 
@@ -50,12 +51,7 @@ class EarthFragment : Fragment() {
             is AppState.SuccessEarthEpic -> {
                 val strDate = appState.serverResponseData.last().date.split(" ").first()
                 val image = appState.serverResponseData.last().image
-                val url = "https://api.nasa.gov/EPIC/archive/natural/" +
-                        strDate.replace("-", "/", true) +
-                        "/png/" +
-                        "$image" +
-                        ".png?api_key=${BuildConfig.NASA_API_KEY}"
-                binding.imageEarth.load(url)
+                binding.imageEarth.load(createEpicUrl(strDate, image))
             }
             is AppState.Error ->
                 Snackbar.make(binding.root, appState.error.toString(), Snackbar.LENGTH_SHORT).show()
@@ -74,5 +70,14 @@ class EarthFragment : Fragment() {
         fun newInstance(): EarthFragment {
             return EarthFragment()
         }
+    }
+
+    private fun createEpicUrl (strDate: String, image: String): String {
+        val url = EPIC_NASA +
+                strDate.replace("-", "/", true) +
+                "/png/" +
+                "$image" +
+                ".png?api_key=${BuildConfig.NASA_API_KEY}"
+        return url
     }
 }

@@ -18,6 +18,15 @@ class RecyclerFragment : Fragment() {
             return _binding!!
         }
 
+    private val data = arrayListOf(
+        Data("Заголовок", type = TYPE_HEADER),
+        Data("Note", type = TYPE_NOTE),
+        Data("Note", type = TYPE_NOTE),
+        Data("Note", type = TYPE_NOTE),
+        Data("Note", type = TYPE_NOTE)
+    )
+    lateinit var adapter: RecyclerAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,16 +39,23 @@ class RecyclerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val data = arrayListOf(
-            Data("Заголовок", type = TYPE_HEADER),
-            Data("Note", type = TYPE_NOTE),
-            Data("Note", type = TYPE_NOTE),
-            Data("Note", type = TYPE_NOTE),
-            Data("Note", type = TYPE_NOTE)
-        )
-        binding.recyclerView.adapter = RecyclerAdapter(data)
+        adapter = RecyclerAdapter(data, callbackAdd, callbackRemove)
+        binding.recyclerView.adapter = adapter
     }
 
+    private val callbackAdd = object : AddItem {
+        override fun add(position: Int) {
+            data.add(position, Data("Note (NEW)", type = TYPE_NOTE))
+            adapter.setListDataAdd(data, position)
+        }
+    }
+
+    private val callbackRemove = object : RemoveItem {
+        override fun remove(position: Int) {
+            data.removeAt(position)
+            adapter.setListDataRemove(data, position)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

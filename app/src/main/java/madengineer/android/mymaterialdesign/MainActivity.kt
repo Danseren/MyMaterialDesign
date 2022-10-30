@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import madengineer.android.mymaterialdesign.databinding.MainActivityBinding
-import madengineer.android.mymaterialdesign.ui.main.view.PictureOfTheDayFragment
 import madengineer.android.mymaterialdesign.ui.main.view.SettingsFragment
 import madengineer.android.mymaterialdesign.ui.main.view.navigation.MarsFragment
 import madengineer.android.mymaterialdesign.ui.main.view.navigation.RecyclerFragment

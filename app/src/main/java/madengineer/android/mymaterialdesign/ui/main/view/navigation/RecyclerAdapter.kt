@@ -1,6 +1,7 @@
 package madengineer.android.mymaterialdesign.ui.main.view.navigation
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import madengineer.android.mymaterialdesign.databinding.ActivityRecyclerItemHeaderBinding
@@ -8,14 +9,28 @@ import madengineer.android.mymaterialdesign.databinding.ActivityRecyclerItemNote
 import madengineer.android.mymaterialdesign.ui.main.model.Data
 import madengineer.android.mymaterialdesign.ui.main.model.TYPE_NOTE
 
-class RecyclerAdapter(private val listData: List<Data>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecyclerAdapter(
+    private var listData: List<Data>,
+    val callbackAdd: AddItem,
+    val callbackRemove: RemoveItem
+) :
+    RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
+
+    fun setListDataRemove(listDataView: List<Data>, position: Int) {
+        listData = listDataView
+        notifyItemRemoved(position)
+    }
+
+    fun setListDataAdd(listDataNew: List<Data>, position: Int) {
+        listData = listDataNew
+        notifyItemInserted(position)
+    }
 
     override fun getItemViewType(position: Int): Int {
         return listData[position].type
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             TYPE_NOTE -> {
                 val binding =
@@ -30,22 +45,36 @@ class RecyclerAdapter(private val listData: List<Data>) :
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.bind(listData[position])
     }
 
     override fun getItemCount(): Int {
         return listData.size
     }
 
-    class NoteViewHolder(val binding: ActivityRecyclerItemNoteBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
+    inner class NoteViewHolder(val binding: ActivityRecyclerItemNoteBinding) :
+        BaseViewHolder(binding.root) {
+        override fun bind(data: Data) {
+            binding.title.text = data.title
+            binding.addItemImageView.setOnClickListener {
+                callbackAdd.add(layoutPosition)
+            }
+            binding.removeItemImageView.setOnClickListener {
+                callbackRemove.remove(layoutPosition)
+            }
+        }
     }
 
     class HeaderViewHolder(val binding: ActivityRecyclerItemHeaderBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        BaseViewHolder(binding.root) {
+        override fun bind(data: Data) {
+            binding.title.text = data.title
+        }
+    }
 
+    abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        abstract fun bind(data: Data)
     }
 
 }
