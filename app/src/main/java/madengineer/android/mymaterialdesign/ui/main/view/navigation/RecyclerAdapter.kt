@@ -3,7 +3,9 @@ package madengineer.android.mymaterialdesign.ui.main.view.navigation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import madengineer.android.mymaterialdesign.R
 import madengineer.android.mymaterialdesign.databinding.ActivityRecyclerItemHeaderBinding
 import madengineer.android.mymaterialdesign.databinding.ActivityRecyclerItemNoteBinding
 import madengineer.android.mymaterialdesign.ui.main.model.Data
@@ -14,7 +16,7 @@ class RecyclerAdapter(
     val callbackAdd: AddItem,
     val callbackRemove: RemoveItem
 ) :
-    RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
+    RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
 
     fun setListDataRemove(listDataView: MutableList<Pair<Data, Boolean>>, position: Int) {
         listData = listDataView
@@ -79,7 +81,8 @@ class RecyclerAdapter(
                     notifyItemMoved(layoutPosition, layoutPosition + 1)
                 }
             }
-            binding.editTextTextPersonName.visibility = if (listData[layoutPosition].second) View.VISIBLE else View.GONE
+            binding.editTextTextPersonName.visibility =
+                if (listData[layoutPosition].second) View.VISIBLE else View.GONE
             binding.noteBody.setOnClickListener {
                 listData[layoutPosition] = listData[layoutPosition].let {
                     it.first to !it.second
@@ -96,8 +99,28 @@ class RecyclerAdapter(
         }
     }
 
-    abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view),
+        ItemTouchHelperViewHolder {
         abstract fun bind(data: Pair<Data, Boolean>)
+        override fun onItemSelect() {
+            itemView.setBackgroundColor(
+                ContextCompat.getColor(itemView.context, R.color.color_gray)
+            )
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
     }
 
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        listData.removeAt(fromPosition).apply {
+            listData.add(toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        callbackRemove.remove(position)
+    }
 }
