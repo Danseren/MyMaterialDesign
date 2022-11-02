@@ -5,6 +5,6 @@ const val TYPE_NOTE = 1
 
 data class Data(
     val title: String = "Title",
-    val noteBody: String? = "Description",
+    val noteBody: String? = "Нажмите для редактирования",
     val type: Int = TYPE_NOTE
 )

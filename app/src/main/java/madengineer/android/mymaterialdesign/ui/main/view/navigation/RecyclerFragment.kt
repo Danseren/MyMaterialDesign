@@ -1,15 +1,19 @@
 package madengineer.android.mymaterialdesign.ui.main.view.navigation
 
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import madengineer.android.mymaterialdesign.databinding.FragmentRecyclerBinding
 import madengineer.android.mymaterialdesign.ui.main.model.Data
 import madengineer.android.mymaterialdesign.ui.main.model.TYPE_HEADER
 import madengineer.android.mymaterialdesign.ui.main.model.TYPE_NOTE
+import java.util.*
 
 class RecyclerFragment : Fragment() {
 
@@ -21,10 +25,7 @@ class RecyclerFragment : Fragment() {
 
     private val data = arrayListOf(
         Pair(Data("Заголовок", type = TYPE_HEADER), false),
-        Pair(Data("Note", type = TYPE_NOTE), false),
-        Pair(Data("Note", type = TYPE_NOTE), false),
-        Pair(Data("Note", type = TYPE_NOTE), false),
-        Pair(Data("Note", type = TYPE_NOTE), false),
+        Pair(Data("First Note", type = TYPE_NOTE), false)
     )
     lateinit var adapter: RecyclerAdapter
 
@@ -46,8 +47,11 @@ class RecyclerFragment : Fragment() {
     }
 
     private val callbackAdd = object : AddItem {
+        @RequiresApi(Build.VERSION_CODES.N)
         override fun add(position: Int) {
-            data.add(position, Pair(Data("Note (NEW)", type = TYPE_NOTE), false))
+            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+            val currentDate = sdf.format(Date())
+            data.add(position, Pair(Data(currentDate, type = TYPE_NOTE), false))
             adapter.setListDataAdd(data, position)
         }
     }

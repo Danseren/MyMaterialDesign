@@ -23,4 +23,8 @@
     <string name="text_size_12f">12</string>
     <string name="text_size_16f">16</string>
     <string name="text_go">Let\'s go!</string>
+    <string name="header">Заголовок</string>
+    <string name="title">Title</string>
+    <string name="note_body">Нажмите для редактирования</string>
+    <string name="edit_text">Содержание заметки</string>
 </resources>
