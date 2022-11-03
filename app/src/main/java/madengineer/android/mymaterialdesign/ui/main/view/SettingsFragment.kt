@@ -1,14 +1,22 @@
 package madengineer.android.mymaterialdesign.ui.main.view
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.BlurMaskFilter
+import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.transition.ChangeBounds
 import androidx.transition.ChangeImageTransform
@@ -18,6 +26,8 @@ import coil.load
 import com.google.android.material.snackbar.Snackbar
 import madengineer.android.mymaterialdesign.MainActivity
 import madengineer.android.mymaterialdesign.R
+import madengineer.android.mymaterialdesign.R.color.colorAccent
+import madengineer.android.mymaterialdesign.R.color.sun_colorSecondary
 import madengineer.android.mymaterialdesign.databinding.FragmentSettingsBinding
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.AppState
 import madengineer.android.mymaterialdesign.ui.main.viewmodel.MainViewModel
@@ -42,7 +52,7 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel.getData().observe(viewLifecycleOwner, {renderData(it)})
+        mainViewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
         mainViewModel.getPOD(0)
 
         val constraintSet = ConstraintSet()
@@ -57,10 +67,30 @@ class SettingsFragment : Fragment() {
             TransitionManager.beginDelayedTransition(binding.constraintContainer, chageBounds)
             if (isFlag) {
                 constraintSet.apply {
-                    connect(R.id.textViewConstraint, ConstraintSet.END, R.id.constraint_container, ConstraintSet.END)
-                    connect(R.id.btnFirst, ConstraintSet.TOP, R.id.textViewConstraint, ConstraintSet.BOTTOM)
-                    connect(R.id.btnFirst, ConstraintSet.END, R.id.constraint_container, ConstraintSet.END)
-                    connect(R.id.btnSecond, ConstraintSet.BOTTOM, R.id.constraint_container, ConstraintSet.BOTTOM)
+                    connect(
+                        R.id.textViewConstraint,
+                        ConstraintSet.END,
+                        R.id.constraint_container,
+                        ConstraintSet.END
+                    )
+                    connect(
+                        R.id.btnFirst,
+                        ConstraintSet.TOP,
+                        R.id.textViewConstraint,
+                        ConstraintSet.BOTTOM
+                    )
+                    connect(
+                        R.id.btnFirst,
+                        ConstraintSet.END,
+                        R.id.constraint_container,
+                        ConstraintSet.END
+                    )
+                    connect(
+                        R.id.btnSecond,
+                        ConstraintSet.BOTTOM,
+                        R.id.constraint_container,
+                        ConstraintSet.BOTTOM
+                    )
                     connect(R.id.btnThird, ConstraintSet.TOP, R.id.btnSecond, ConstraintSet.BOTTOM)
                 }
             } else {
@@ -105,8 +135,10 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
+    @SuppressLint("ResourceAsColor")
     private fun renderData(appState: AppState?) {
-        when(appState) {
+        when (appState) {
             is AppState.Error ->
                 Snackbar.make(binding.root, appState.error.toString(), Snackbar.LENGTH_SHORT).show()
             is AppState.Loading -> {
@@ -115,7 +147,54 @@ class SettingsFragment : Fragment() {
             is AppState.SuccessPOD -> {
                 val url = appState.serverResponseData.hdurl
                 binding.imageView.load(url)
-                binding.textViewDescription.text = appState.serverResponseData.explanation
+
+                val text = appState.serverResponseData.explanation?.split(" ")
+                val spannableString = SpannableString(appState.serverResponseData.explanation)
+
+                if (text != null) {
+
+                    if (text.size > 24) {
+                        val divisor = text.toString().length / 10
+
+                        spannableString.setSpan(
+                            LineBackgroundSpan.Standard(
+                                ContextCompat.getColor(requireContext(),sun_colorSecondary)),
+                            0,
+                            divisor,
+                            0
+                        )
+                        spannableString.setSpan(
+                            ForegroundColorSpan(ContextCompat.getColor(requireContext(),colorAccent)),
+                            divisor,
+                            divisor * 2,
+                            0
+                        )
+                        spannableString.setSpan(
+                            StyleSpan(Typeface.BOLD),divisor * 2,divisor * 3,0
+                        )
+                        spannableString.setSpan(
+                            UnderlineSpan(), divisor * 3, divisor * 4, 0
+                        )
+                        spannableString.setSpan(
+                            StrikethroughSpan(), divisor * 4, divisor * 5, 0
+                        )
+                        spannableString.setSpan(
+                            TextAppearanceSpan(requireContext(), R.style.SpanTextAppearance),
+                            divisor * 5,
+                            divisor * 6,
+                            0
+                        )
+                        spannableString.setSpan(
+                            MaskFilterSpan(BlurMaskFilter(5f, BlurMaskFilter.Blur.SOLID)),
+                            divisor * 6,
+                            divisor * 7,
+                            0
+                        )
+                    }
+                }
+
+                binding.textViewDescription.text = spannableString
+
             }
         }
     }
